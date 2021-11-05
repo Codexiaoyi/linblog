@@ -12,10 +12,9 @@
             </div>
             <div class="footer-item">
                 <div>本站已苟活 {{runTimeInterval}}</div>
-                <div><a target="_blank" class="out-link" href="#">☞后台管理</a></div>
             </div>
         </div>
-        <div class="copyright">Copyright © 2020 by <a target="_blank" class="out-link" href="https://www.fengziy.cn">fengziy.cn</a> . All rights reserved. | <a target="_blank" class="out-link" href="http://www.beian.miit.gov.cn">渝ICP备17015355号-1</a></div>
+        <!-- <div class="copyright">Copyright © 2020 by <a target="_blank" class="out-link" href="https://www.fengziy.cn">fengziy.cn</a> . All rights reserved. | <a target="_blank" class="out-link" href="http://www.beian.miit.gov.cn">渝ICP备17015355号-1</a></div> -->
     </div>
 </template>
 

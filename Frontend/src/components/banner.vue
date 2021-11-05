@@ -138,12 +138,13 @@
             width: 60%;
             font-size: 14px;
             color: #EAEADF;
-            background: rgba(0, 0, 0, 0.66);
+            background: rgba(85, 77, 77, 0.66);
             padding: 20px 30px;
             margin: 30px auto 0 auto;
             font-family: miranafont,"Hiragino Sans GB",STXihei,"Microsoft YaHei",SimSun,sans-serif;
             letter-spacing: 1px;
             line-height: 30px;
+            border-radius: 50px;
         }
         .top-social {
             height: 32px;
