@@ -2,12 +2,15 @@ package main
 
 import (
 	"linblog/controllers"
+	"linblog/middlewares"
 
 	"github.com/Codexiaoyi/linweb"
 )
 
 func main() {
 	linweb := linweb.NewLinWeb()
-	linweb.AddControllers(&controllers.HomeController{})
-	linweb.Run(":6666")
+	linweb.AddTransient()
+	linweb.AddMiddlewares(middlewares.Cors)
+	linweb.AddControllers(&controllers.SiteController{})
+	linweb.Run(":5002")
 }
