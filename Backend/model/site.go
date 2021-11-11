@@ -9,3 +9,12 @@ type Site struct {
 	Notice string
 	Desc   string
 }
+
+//社交信息
+type Social struct {
+	Id    int
+	Title string
+	Icon  string
+	Color string
+	Href  string
+}

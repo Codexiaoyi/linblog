@@ -1,32 +1,58 @@
 package controllers
 
 import (
+	"linblog/repository"
 	"net/http"
 
+	"github.com/Codexiaoyi/linweb"
 	"github.com/Codexiaoyi/linweb/interfaces"
 )
 
 type SiteController struct {
+	SiteRepo *repository.SiteRepository
 }
 
 //[GET("/site")]
 func (site *SiteController) GetSiteInfo(c interfaces.IContext) {
-	response := &SiteResponseDto{
-		Avatar: "https://s2.ax1x.com/2020/01/17/1SCadg.png",
-		Slogan: "The way up is not crowded, and most chose ease.",
-		Name:   "FZY′blog",
-		Domain: "https://www.fengziy.cn",
-		Notice: "本博客的Demo数据由Mockjs生成",
-		Desc:   "一个It技术的探索者",
+	response := &siteResponseDto{}
+	siteInfo := site.SiteRepo.Get()
+	err := linweb.NewModel(siteInfo).MapToByFieldName(response).ModelError()
+	if err != nil {
+		Response(c, http.StatusInternalServerError, nil)
+		return
 	}
 	Response(c, http.StatusOK, response)
 }
 
-type SiteResponseDto struct {
+//[GET("/social")]
+func (site *SiteController) GetSocials(c interfaces.IContext) {
+	socials := site.SiteRepo.GetSocials()
+	response := make([]*socialResponseDto, 0, len(socials))
+	for _, social := range socials {
+		dto := &socialResponseDto{}
+		err := linweb.NewModel(social).MapToByFieldName(dto).ModelError()
+		if err != nil {
+			Response(c, http.StatusInternalServerError, nil)
+			return
+		}
+		response = append(response, dto)
+	}
+	Response(c, http.StatusOK, response)
+}
+
+type siteResponseDto struct {
 	Avatar string `json:"avatar"`
 	Slogan string `json:"slogan"`
 	Name   string `json:"name"`
 	Domain string `json:"domain"`
 	Notice string `json:"notice"`
 	Desc   string `json:"desc"`
+}
+
+type socialResponseDto struct {
+	Id    int    `json:"id"`
+	Title string `json:"title"`
+	Icon  string `json:"icon"`
+	Color string `json:"color"`
+	Href  string `json:"href"`
 }
