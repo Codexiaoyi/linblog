@@ -10,7 +10,7 @@ import (
 type ArticleRepository struct {
 }
 
-func (article *ArticleRepository) GetArticles(page, size int) ([]*model.Article, int, error) {
+func (article *ArticleRepository) GetAllArticles(page, size int) ([]*model.Article, int, error) {
 	//先拿到所有的分类
 	cates, err := articleSource.Article.GetCategories()
 	if err != nil {
@@ -38,7 +38,6 @@ func (article *ArticleRepository) GetArticles(page, size int) ([]*model.Article,
 			}
 			//每个分类对应的文章
 			if totalLength >= min_index && totalLength < max_index {
-				content, _ := articleSource.Article.GetArticleHtml(cate, article)
 				newArticle := &model.Article{
 					Id:            totalLength,
 					IsTop:         false,
@@ -47,7 +46,7 @@ func (article *ArticleRepository) GetArticles(page, size int) ([]*model.Article,
 					PubTime:       int(time.Now().UnixMilli()),
 					Title:         article,
 					Summary:       "testtesttesttest",
-					Content:       content,
+					Category:      cate,
 					ViewsCount:    1000,
 					CommentsCount: 100,
 				}
@@ -57,4 +56,12 @@ func (article *ArticleRepository) GetArticles(page, size int) ([]*model.Article,
 		}
 	}
 	return res, totalLength, nil
+}
+
+func (article *ArticleRepository) GetArticleContent(cate, title string) (string, error) {
+	articleContent, err := articleSource.Article.GetArticleHtml(cate, title)
+	if err != nil {
+		return "", err
+	}
+	return articleContent, nil
 }

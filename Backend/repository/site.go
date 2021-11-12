@@ -8,10 +8,10 @@ type SiteRepository struct {
 func (site *SiteRepository) Get() interface{} {
 	siteInfo := &model.Site{
 		Avatar: "https://s2.ax1x.com/2020/01/17/1SCadg.png",
-		Slogan: "The way up is not crowded, and most chose ease.",
-		Name:   "FZY′blog",
+		Slogan: "怎就让这不停燃烧的心,就这样耗尽消失在平庸里",
+		Name:   "aaayi′blog",
 		Domain: "https://www.fengziy.cn",
-		Notice: "本博客的Demo数据由Mockjs生成",
+		Notice: "",
 		Desc:   "一个It技术的探索者",
 	}
 	return siteInfo

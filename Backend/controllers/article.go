@@ -11,8 +11,7 @@ import (
 )
 
 type ArticleController struct {
-	CategoryRepo *repository.CategoryRepository
-	ArticleRepo  *repository.ArticleRepository
+	ArticleRepo *repository.ArticleRepository
 }
 
 //[GET("/post/list")]
@@ -25,7 +24,7 @@ func (a *ArticleController) GetHomeArticles(c interfaces.IContext) {
 	if size == 0 {
 		size = 5
 	}
-	articles, total, err := a.ArticleRepo.GetArticles(page, size)
+	articles, total, err := a.ArticleRepo.GetAllArticles(page, size)
 	if err != nil {
 		Response(c, http.StatusInternalServerError, nil)
 		return
@@ -49,25 +48,17 @@ func (a *ArticleController) GetHomeArticles(c interfaces.IContext) {
 	Response(c, http.StatusOK, response)
 }
 
-//[GET("/category/:cate")]
-func (a *ArticleController) GetCategoryArticles(c interfaces.IContext) {
-	fmt.Println(c.Request().Param("cate"))
-}
-
-//[GET("/category")]
-func (article *ArticleController) GetCategories(c interfaces.IContext) {
-	cates := article.CategoryRepo.GetCategories()
-	response := make([]*categoryResponseDto, 0, len(cates))
-	for _, category := range cates {
-		dto := &categoryResponseDto{}
-		err := linweb.NewModel(category).MapToByFieldName(dto).ModelError()
-		if err != nil {
-			Response(c, http.StatusInternalServerError, nil)
-			return
-		}
-		response = append(response, dto)
+//[GET("/article/:cate/:title")]
+func (a *ArticleController) GetArticle(c interfaces.IContext) {
+	cate := c.Request().Param("cate")
+	title := c.Request().Param("title")
+	article, err := a.ArticleRepo.GetArticleContent(cate, title)
+	if err != nil {
+		Response(c, http.StatusInternalServerError, nil)
+		return
 	}
-	Response(c, http.StatusOK, response)
+	fmt.Println(article)
+	Response(c, http.StatusOK, article)
 }
 
 type articleListResponseDto struct {
@@ -86,13 +77,7 @@ type articleResponseDto struct {
 	PubTime       int    `json:"pubTime"`
 	Title         string `json:"title"`
 	Summary       string `json:"summary"`
-	Content       string `json:"content"`
+	Category      string `json:"category"`
 	ViewsCount    int    `json:"viewsCount"`
 	CommentsCount int    `json:"commentsCount"`
-}
-
-type categoryResponseDto struct {
-	Id    int    `json:"id"`
-	Title string `json:"title"`
-	Href  string `json:"href"`
 }

@@ -8,7 +8,7 @@ type Article struct {
 	PubTime       int
 	Title         string
 	Summary       string
-	Content       string
+	Category      string
 	ViewsCount    int
 	CommentsCount int
 }
