@@ -8,6 +8,14 @@ export function fetchList(params) {
     })
 }
 
+export function fetchArticleContent(cate,title) {
+    return request({
+        url: '/article/'+cate+'/'+title,
+        method: 'get',
+        params: {}
+    })
+}
+
 export function fetchFocus() {
     return request({
         url: '/focus/list',

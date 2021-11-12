@@ -2,12 +2,12 @@
     <div id="layout-header" :class="{'fixed':fixed,'hidden':hidden}" @click.stop="mobileShow=false">
         <div class="site-logo">
             <router-link to="/">
-                <img src="@/assets/site-logo.svg" alt="">
+                <img src="https://picsum.photos/60/60" alt="">
                 <p class="site-name">linblog</p>
             </router-link>
         </div>
         <div class="menus-btn" @click.stop="mobileShow=!mobileShow">
-            Menus
+            菜单
         </div>
         <div class="site-menus" :class="{'mobileShow':mobileShow}" @click.stop="mobileShow=!mobileShow">
             <div class="menu-item header-search"><header-search/></div>
@@ -82,6 +82,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.4);
         transition: .3s all ease;
         -webkit-transition: .3s all ease;
         -moz-transition: .3s all linear;
@@ -92,7 +93,7 @@
         }
         &.fixed{
             background-color: #FFFFFF;
-            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.4);
         }
     }
 
@@ -100,15 +101,16 @@
         text-align: center;
 
         img {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
         }
 
         p.site-name {
             font-size: 15px;
             font-weight: bold;
             position: relative;
-            top: -10px;
+            top: 0px;
         }
     }
     .menus-btn{

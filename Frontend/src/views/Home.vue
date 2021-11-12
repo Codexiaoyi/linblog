@@ -8,11 +8,11 @@
                     <span v-if="searchWords">搜索结果："{{searchWords}}" 相关文章</span>
                     <span v-else-if="category">分类 "{{category}}" 相关文章</span>
                 </div>
-                <quote v-else>{{notice}}</quote>
+                <!--<quote v-else>{{notice}}</quote>-->
             </div>
 
             <!--焦点图-->
-            <div class="top-feature" v-if="!hideSlogan">
+            <!--<div class="top-feature" v-if="!hideSlogan">
                 <section-title>
                     <div style="display: flex;align-items: flex-end;">聚焦<small-ico></small-ico></div>
                 </section-title>
@@ -21,7 +21,7 @@
                         <Feature :data="item"></Feature>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!--文章列表-->
             <main class="site-main" :class="{'search':hideSlogan}">
                 <section-title v-if="!hideSlogan">推荐</section-title>
@@ -151,7 +151,7 @@
     }
 
     .site-main {
-        padding-top: 80px;
+        padding-top: 50px;
 
         &.search {
             padding-top: 0;

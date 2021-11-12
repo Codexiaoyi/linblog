@@ -37,7 +37,7 @@
         props:{
             src:{
                 type: String,
-                default: 'https://s1.ax1x.com/2020/05/23/YxaLMq.jpg'
+                default: 'https://picsum.photos/'+document.body.clientWidth+'/500'
             },
             isHome:{
                 type: [Boolean,String],
