@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"linblog/repository"
 	"net/http"
 	"strconv"
@@ -57,7 +56,6 @@ func (a *ArticleController) GetArticle(c interfaces.IContext) {
 		Response(c, http.StatusInternalServerError, nil)
 		return
 	}
-	fmt.Println(article)
 	Response(c, http.StatusOK, article)
 }
 
@@ -74,10 +72,11 @@ type articleResponseDto struct {
 	IsTop         bool   `json:"isTop"`
 	Banner        string `json:"banner"`
 	IsHot         bool   `json:"isHot"`
-	PubTime       int    `json:"pubTime"`
+	PubTime       string `json:"pubTime"`
 	Title         string `json:"title"`
 	Summary       string `json:"summary"`
 	Category      string `json:"category"`
+	Publisher     string `json:"publisher"`
 	ViewsCount    int    `json:"viewsCount"`
 	CommentsCount int    `json:"commentsCount"`
 }

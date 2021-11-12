@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io"
 	"linblog/config"
+	"linblog/model"
+	"linblog/utils"
 
 	"github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/ast"
@@ -115,4 +117,46 @@ func (g *Gitee) GetArticleHtml(category string, articleName string) (string, err
 
 func (g *Gitee) GetImageUrl(category string, articleName string, imageName string) (string, error) {
 	return fmt.Sprintf("https://gitee.com/%s/%s/raw/master/%s/%s/%s", g.owner, g.repo, category, articleName, imageName), nil
+}
+
+func (g *Gitee) GetArticleInfo(category string, articleName string) (*model.Article, error) {
+	response, err := DoRequest(fmt.Sprintf("https://gitee.com/api/v5/repos/%s/%s/contents/%s/%s/info.json", g.owner, g.repo, category, articleName))
+	if err != nil {
+		return nil, err
+	}
+	info := &GiteeResponse{}
+	err = json.Unmarshal(response, &info)
+	if err != nil {
+		return nil, err
+	}
+	mdStr, err := base64.StdEncoding.DecodeString(info.Content)
+	if err != nil {
+		return nil, err
+	}
+
+	article := &article{}
+	err = json.Unmarshal(mdStr, &article)
+	if err != nil {
+		return nil, err
+	}
+	newArticle := &model.Article{
+		IsTop:         article.IsTop,
+		Banner:        utils.GetRandomImageUrl(),
+		IsHot:         true,
+		PubTime:       article.PubTime,
+		Title:         articleName,
+		Summary:       article.Summary,
+		Publisher:     article.Publisher,
+		Category:      category,
+		ViewsCount:    1000,
+		CommentsCount: 100,
+	}
+	return newArticle, nil
+}
+
+type article struct {
+	IsTop     bool   `json:"is_top"`
+	PubTime   string `json:"publish_time"`
+	Summary   string `json:"summary"`
+	Publisher string `json:"publisher"`
 }

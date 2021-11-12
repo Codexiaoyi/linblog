@@ -3,8 +3,6 @@ package repository
 import (
 	"linblog/model"
 	"linblog/repository/articleSource"
-	"linblog/utils"
-	"time"
 )
 
 type ArticleRepository struct {
@@ -38,18 +36,7 @@ func (article *ArticleRepository) GetAllArticles(page, size int) ([]*model.Artic
 			}
 			//每个分类对应的文章
 			if totalLength >= min_index && totalLength < max_index {
-				newArticle := &model.Article{
-					Id:            totalLength,
-					IsTop:         false,
-					Banner:        utils.GetRandomImageUrl(),
-					IsHot:         true,
-					PubTime:       int(time.Now().UnixMilli()),
-					Title:         article,
-					Summary:       "testtesttesttest",
-					Category:      cate,
-					ViewsCount:    1000,
-					CommentsCount: 100,
-				}
+				newArticle, _ := articleSource.Article.GetArticleInfo(cate, article)
 				res = append(res, newArticle)
 			}
 			totalLength++

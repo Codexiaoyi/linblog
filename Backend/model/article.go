@@ -5,10 +5,11 @@ type Article struct {
 	IsTop         bool
 	Banner        string
 	IsHot         bool
-	PubTime       int
+	PubTime       string
 	Title         string
 	Summary       string
 	Category      string
+	Publisher     string
 	ViewsCount    int
 	CommentsCount int
 }

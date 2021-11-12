@@ -3,6 +3,7 @@ package articleSource
 import (
 	"io/ioutil"
 	"linblog/config"
+	"linblog/model"
 	"net/http"
 )
 
@@ -12,6 +13,7 @@ type ArticleSource interface {
 	GetCategories() ([]string, error)
 	GetArticleNames(category string) ([]string, error)
 	GetArticleHtml(category string, articleName string) (string, error)
+	GetArticleInfo(category string, articleName string) (*model.Article, error)
 	GetImageUrl(category string, articleName string, imageName string) (string, error)
 }
 
