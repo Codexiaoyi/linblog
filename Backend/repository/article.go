@@ -3,6 +3,7 @@ package repository
 import (
 	"linblog/model"
 	"linblog/repository/articleSource"
+	"linblog/utils"
 	"time"
 )
 
@@ -32,19 +33,16 @@ func (article *ArticleRepository) GetArticles(page, size int) ([]*model.Article,
 		}
 
 		for _, article := range articles {
-			if totalLength > max_index {
+			if totalLength >= max_index {
 				return res, totalLength, nil
 			}
 			//每个分类对应的文章
-			if totalLength >= min_index && totalLength <= max_index {
-				content, err := articleSource.Article.GetArticleHtml(cate, article)
-				if err != nil {
-					return nil, 0, err
-				}
+			if totalLength >= min_index && totalLength < max_index {
+				content, _ := articleSource.Article.GetArticleHtml(cate, article)
 				newArticle := &model.Article{
 					Id:            totalLength,
 					IsTop:         false,
-					Banner:        "https://picsum.photos/200",
+					Banner:        utils.GetRandomImageUrl(),
 					IsHot:         true,
 					PubTime:       int(time.Now().UnixMilli()),
 					Title:         article,

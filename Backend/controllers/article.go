@@ -23,7 +23,7 @@ func (a *ArticleController) GetHomeArticles(c interfaces.IContext) {
 		page = 1
 	}
 	if size == 0 {
-		size = 10
+		size = 5
 	}
 	articles, total, err := a.ArticleRepo.GetArticles(page, size)
 	if err != nil {
@@ -33,7 +33,7 @@ func (a *ArticleController) GetHomeArticles(c interfaces.IContext) {
 	response := &articleListResponseDto{
 		Total:       total,
 		Items:       make([]*articleResponseDto, 0, len(articles)),
-		HasNextPage: total > page*size,
+		HasNextPage: total >= page*size,
 		Page:        page,
 		Size:        size,
 	}
