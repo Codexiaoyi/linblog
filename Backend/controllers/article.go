@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"linblog/model"
 	"linblog/repository"
 	"net/http"
 	"strconv"
@@ -13,8 +14,9 @@ type ArticleController struct {
 	ArticleRepo *repository.ArticleRepository
 }
 
-//[GET("/post/list")]
+//[GET("/articles")]
 func (a *ArticleController) GetHomeArticles(c interfaces.IContext) {
+	category := c.Request().Query("category")
 	page, _ := strconv.Atoi(c.Request().Query("page"))
 	size, _ := strconv.Atoi(c.Request().Query("size"))
 	if page == 0 {
@@ -23,7 +25,13 @@ func (a *ArticleController) GetHomeArticles(c interfaces.IContext) {
 	if size == 0 {
 		size = 5
 	}
-	articles, total, err := a.ArticleRepo.GetAllArticles(page, size)
+	total, err := 0, (error)(nil)
+	articles := make([]*model.Article, 0)
+	if category != "" {
+		articles, total, err = a.ArticleRepo.GetArticlesByCategory(category, page, size)
+	} else {
+		articles, total, err = a.ArticleRepo.GetAllArticles(page, size)
+	}
 	if err != nil {
 		Response(c, http.StatusInternalServerError, nil)
 		return

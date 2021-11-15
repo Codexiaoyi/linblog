@@ -89,7 +89,7 @@
                 })
             },
             fetchList() {
-                fetchList().then(res => {
+                fetchList({category:this.category}).then(res => {
                     this.postList = res.data.items || []
                     this.currPage = res.data.page
                     this.hasNextPage = res.data.hasNextPage
@@ -98,7 +98,7 @@
                 })
             },
             loadMore() {
-                fetchList({page:this.currPage+1}).then(res => {
+                fetchList({category:this.category,page:this.currPage+1}).then(res => {
                     this.postList = this.postList.concat(res.data.items || [])
                     this.currPage = res.data.page
                     this.hasNextPage = res.data.hasNextPage
@@ -108,6 +108,11 @@
         mounted() {
             this.fetchFocus();
             this.fetchList();
+        },
+        watch: {
+            $route(to,from) {
+                this.fetchList();
+            }
         }
     }
 </script>

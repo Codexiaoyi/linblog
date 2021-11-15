@@ -45,6 +45,29 @@ func (article *ArticleRepository) GetAllArticles(page, size int) ([]*model.Artic
 	return res, totalLength, nil
 }
 
+func (article *ArticleRepository) GetArticlesByCategory(cate string, page, size int) ([]*model.Article, int, error) {
+	//按照所有分类拿到所有的文章名
+	res := make([]*model.Article, 0)
+	min_index, max_index := (page-1)*size, page*size
+	totalLength := 0
+	articles, err := articleSource.Article.GetArticleNames(cate)
+	if err != nil {
+		return nil, 0, err
+	}
+	for _, article := range articles {
+		if totalLength >= max_index {
+			return res, totalLength, nil
+		}
+		//每个分类对应的文章
+		if totalLength >= min_index && totalLength < max_index {
+			newArticle, _ := articleSource.Article.GetArticleInfo(cate, article)
+			res = append(res, newArticle)
+		}
+		totalLength++
+	}
+	return res, totalLength, nil
+}
+
 func (article *ArticleRepository) GetArticleContent(cate, title string) (string, error) {
 	articleContent, err := articleSource.Article.GetArticleHtml(cate, title)
 	if err != nil {
