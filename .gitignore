@@ -34,3 +34,5 @@
 /Frontend/*.njsproj
 /Frontend/*.sln
 /Frontend/*.sw?
+
+/Backend/config/config.ini
