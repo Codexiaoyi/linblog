@@ -1,5 +1,5 @@
 <template>
-    <h1 class="section-title"><slot></slot></h1>
+    <div class="section-title"><slot></slot></div>
 </template>
 
 <script>
@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-    h1.section-title {
+    div.section-title {
         color: #757575;
         font-size: 16px;
         font-weight: 400;

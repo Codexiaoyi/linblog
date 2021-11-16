@@ -11,6 +11,13 @@ var (
 	AccessToken string
 	Owner       string
 	Repo        string
+
+	Avatar string
+	Slogan string
+	Name   string
+	Domain string
+	Notice string
+	Desc   string
 )
 
 func init() {
@@ -18,12 +25,23 @@ func init() {
 	if err != nil {
 		fmt.Println("Load config file error!", err)
 	}
-	LoadServer(file)
+	LoadSource(file)
+	LoadSiteInfo(file)
 }
 
-//加载服务器设置
-func LoadServer(file *ini.File) {
+//加载数据资源配置
+func LoadSource(file *ini.File) {
 	AccessToken = file.Section("gitee").Key("AccessToken").MustString("")
 	Owner = file.Section("gitee").Key("Owner").MustString("")
 	Repo = file.Section("gitee").Key("Repo").MustString("")
+}
+
+//加载站点基本信息
+func LoadSiteInfo(file *ini.File) {
+	Avatar = file.Section("site").Key("Avatar").MustString("")
+	Slogan = file.Section("site").Key("Slogan").MustString("")
+	Name = file.Section("site").Key("Name").MustString("")
+	Domain = file.Section("site").Key("Domain").MustString("")
+	Notice = file.Section("site").Key("Notice").MustString("")
+	Desc = file.Section("site").Key("Desc").MustString("")
 }

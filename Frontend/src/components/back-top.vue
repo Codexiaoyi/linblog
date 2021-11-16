@@ -53,13 +53,13 @@
     bottom: 8rem;
     border-radius: 25px;
     cursor: pointer;
-    opacity: .3;
+    opacity: .8;
     transition: .3s;
     text-align: center;
     z-index: 99;
     img{
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
     }
     .img2{
         display: none;
@@ -68,6 +68,8 @@
         display: none;
     }
     &:hover img.img2{
+        width: 60px;
+        height: 60px;
         display: unset;
     }
 }
