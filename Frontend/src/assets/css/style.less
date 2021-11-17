@@ -53,6 +53,10 @@
 }
 /**文章样式**/
 .entry-content{
+  strong {
+    font-weight: bold;
+    color: #d81e06;
+  }
 
   /* BLOCKS
   =============================================================================*/
@@ -215,17 +219,26 @@
 
   pre {
     background-color: #f8f8f8;
-    border: 1px solid #F9F9F9;
+    border: 10px solid #F9F9F9;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     line-height: 1.5rem;
     overflow: auto;
     padding: 6px 10px;
-    border-radius: 3px;
+    border-radius: 10px;
   }
 
   pre code, pre tt {
     background-color: transparent;
-    border: none;
   }
+
+  pre>code>span.com {
+    color: green;
+  }
+
+  pre>code>span.kwd {
+    color: blue;
+  }
+
   /* QUOTES
   =============================================================================*/
 
@@ -283,7 +296,8 @@
   =============================================================================*/
 
   img {
-    max-width: 100%
+    max-width: 100%;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   }
   /* P
   =============================================================================*/

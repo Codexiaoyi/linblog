@@ -95,17 +95,27 @@ func (g *Gitee) GetArticleHtml(category string, articleName string) (string, err
 
 	htmlFlags := html.CommonFlags | html.HrefTargetBlank
 	renderImageFunc := func(w io.Writer, node ast.Node, entering bool) (ast.WalkStatus, bool) {
-		//这里将md中的图片在转换为html的时候替换
-		image, ok := node.(*ast.Image)
-		if !ok {
-			return ast.GoToNext, false
+		switch node.(type) {
+		case *ast.Image:
+			//这里将md中的图片在转换为html的时候替换
+			image := node.(*ast.Image)
+			name := string(image.Destination)
+			url, err := g.GetImageUrl(category, articleName, name)
+			if err != nil {
+				return ast.GoToNext, false
+			}
+			image.Destination = []byte(url)
+			break
+		case *ast.CodeBlock:
+			code := node.(*ast.CodeBlock)
+			newCode, err := utils.ToGoSyntaxHighlight(code.Literal)
+			if err == nil {
+				io.WriteString(w, newCode)
+				//跳过这个node
+				return ast.GoToNext, true
+			}
+			break
 		}
-		name := string(image.Destination)
-		url, err := g.GetImageUrl(category, articleName, name)
-		if err != nil {
-			return ast.GoToNext, false
-		}
-		image.Destination = []byte(url)
 		return ast.GoToNext, false
 	}
 
