@@ -18,8 +18,8 @@
                     <div class="sub-menu" v-for="item in category" :key="item.title"><router-link :to="`/category/${item.title}`">{{item.title}}</router-link></div>
                 </div>
             </div>
-            <div class="menu-item"><router-link to="/friend">友链</router-link></div>
-            <div class="menu-item"><router-link to="/about">关于</router-link></div>
+            <!-- <div class="menu-item"><router-link to="/friend">友链</router-link></div>
+            <div class="menu-item"><router-link to="/about">关于</router-link></div> -->
         </div>
     </div>
 </template>

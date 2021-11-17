@@ -16,6 +16,14 @@ export function fetchArticleContent(cate,title) {
     })
 }
 
+export function fetchArticleInfo(cate,title) {
+    return request({
+        url: '/article/info/'+cate+'/'+title,
+        method: 'get',
+        params: {}
+    })
+}
+
 export function fetchFocus() {
     return request({
         url: '/focus/list',

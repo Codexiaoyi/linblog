@@ -68,10 +68,10 @@ func (article *ArticleRepository) GetArticlesByCategory(cate string, page, size 
 	return res, totalLength, nil
 }
 
-func (article *ArticleRepository) GetArticleContent(cate, title string) (string, error) {
-	articleContent, err := articleSource.Article.GetArticleHtml(cate, title)
-	if err != nil {
-		return "", err
-	}
-	return articleContent, nil
+func (article *ArticleRepository) GetArticleContent(category, articleName string) (string, error) {
+	return articleSource.Article.GetArticleHtml(category, articleName)
+}
+
+func (article *ArticleRepository) GetArticleInfo(category string, articleName string) (*model.Article, error) {
+	return articleSource.Article.GetArticleInfo(category, articleName)
 }

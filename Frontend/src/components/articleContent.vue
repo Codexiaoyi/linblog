@@ -6,7 +6,7 @@
             <h1 class="entry-title">{{title}}</h1>
             <hr>
             <div class="breadcrumbs">
-                <div id="crumbs">创建时间：</div>
+                <div id="crumbs">创建时间：{{publishTime}}</div>
             </div>
         </header>
         <!-- 正文输出 -->
@@ -19,7 +19,7 @@
                 <!-- 阅读次数 -->
                 <div class="post-like">
                     <i class="iconfont iconeyes"></i>
-                    <span class="count">685</span>
+                    <span class="count">{{viewsCount}}</span>
                 </div>
                 <!-- 分享按钮 -->
                 <!--                        <div class="post-share">-->
@@ -62,7 +62,7 @@
 
 <script>
     import sectionTitle from '@/components/section-title'
-    import {fetchArticleContent} from '../api'
+    import {fetchArticleContent,fetchArticleInfo} from '../api'
     export default {
         name: 'articleContent',
         props: {
@@ -75,6 +75,8 @@
         },
         data(){
           return{
+              publishTime:"",
+              viewsCount:"",
               content:"",
           }
         },
@@ -89,9 +91,18 @@
                   console.log(err)
               })
           },
+          getArticleInfo(cate,title){
+              fetchArticleInfo(cate,title).then(res => {
+                  this.publishTime = res.data.pubTime
+                  this.viewsCount = res.data.viewsCount
+              }).catch(err => {
+                  console.log(err)
+              })
+          },
         },
         mounted() {
             this.getArticleContent(this.cate,this.title)
+            this.getArticleInfo(this.cate,this.title)
         }
     }
 </script>

@@ -94,7 +94,7 @@ func (g *Gitee) GetArticleHtml(category string, articleName string) (string, err
 	}
 
 	htmlFlags := html.CommonFlags | html.HrefTargetBlank
-	renderImageFunc := func(w io.Writer, node ast.Node, entering bool) (ast.WalkStatus, bool) {
+	renderFunc := func(w io.Writer, node ast.Node, entering bool) (ast.WalkStatus, bool) {
 		switch node.(type) {
 		case *ast.Image:
 			//这里将md中的图片在转换为html的时候替换
@@ -105,7 +105,6 @@ func (g *Gitee) GetArticleHtml(category string, articleName string) (string, err
 				return ast.GoToNext, false
 			}
 			image.Destination = []byte(url)
-			break
 		case *ast.CodeBlock:
 			code := node.(*ast.CodeBlock)
 			newCode, err := utils.ToGoSyntaxHighlight(code.Literal)
@@ -114,12 +113,11 @@ func (g *Gitee) GetArticleHtml(category string, articleName string) (string, err
 				//跳过这个node
 				return ast.GoToNext, true
 			}
-			break
 		}
 		return ast.GoToNext, false
 	}
 
-	opts := html.RendererOptions{Flags: htmlFlags, RenderNodeHook: renderImageFunc}
+	opts := html.RendererOptions{Flags: htmlFlags, RenderNodeHook: renderFunc}
 	renderer := html.NewRenderer(opts)
 	html := markdown.ToHTML(mdStr, nil, renderer)
 	return string(html), nil

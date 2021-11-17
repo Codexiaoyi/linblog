@@ -55,8 +55,26 @@ func (a *ArticleController) GetHomeArticles(c interfaces.IContext) {
 	Response(c, http.StatusOK, response)
 }
 
+//[GET("/article/info/:cate/:title")]
+func (a *ArticleController) GetArticleInfo(c interfaces.IContext) {
+	cate := c.Request().Param("cate")
+	title := c.Request().Param("title")
+	info, err := a.ArticleRepo.GetArticleInfo(cate, title)
+	if err != nil {
+		Response(c, http.StatusInternalServerError, nil)
+		return
+	}
+	dto := &articleResponseDto{}
+	err = linweb.NewModel(info).MapToByFieldName(dto).ModelError()
+	if err != nil {
+		Response(c, http.StatusInternalServerError, nil)
+		return
+	}
+	Response(c, http.StatusOK, dto)
+}
+
 //[GET("/article/:cate/:title")]
-func (a *ArticleController) GetArticle(c interfaces.IContext) {
+func (a *ArticleController) GetArticleContent(c interfaces.IContext) {
 	cate := c.Request().Param("cate")
 	title := c.Request().Param("title")
 	article, err := a.ArticleRepo.GetArticleContent(cate, title)
