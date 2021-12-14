@@ -10,6 +10,9 @@
                 </div>
                 <!--<quote v-else>{{notice}}</quote>-->
             </div>
+            <div class="player-container">
+                <vue-core-video-player :core="HLSCore" aria-controls="fixed" src="http://101.34.253.86:3002/video/imagine.m3u8"></vue-core-video-player>
+            </div>
 
             <!--焦点图-->
             <!--<div class="top-feature" v-if="!hideSlogan">
@@ -46,6 +49,8 @@
     import SmallIco from '@/components/small-ico'
     import Quote from '@/components/quote'
     import {fetchFocus, fetchList} from '../api'
+    import VueCoreVideoPlayer from 'vue-core-video-player'
+    import HLSCore from '@core-player/playcore-hls'
 
     export default {
         name: 'Home',
@@ -55,7 +60,8 @@
                 features: [],
                 postList: [],
                 currPage: 1,
-                hasNextPage: false
+                hasNextPage: false,
+                HLSCore
             }
         },
         components: {
@@ -117,7 +123,6 @@
     }
 </script>
 <style scoped lang="less">
-
     .site-content {
         .notify {
             margin: 60px 0;

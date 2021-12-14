@@ -1,7 +1,7 @@
 <template>
     <div class="header-search">
-        <i class="iconfont iconsearch" @click.stop="click"></i>
-        <input ref="searchInput" :class="{'show':show}" v-model="searchValue" type="text" @click.stop="" @keyup.enter="search"/>
+        <!--<i class="iconfont iconsearch" @click.stop="click"></i>
+        <input ref="searchInput" :class="{'show':show}" v-model="searchValue" type="text" @click.stop="" @keyup.enter="search"/>-->
     </div>
 </template>
 

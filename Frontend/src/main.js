@@ -6,6 +6,10 @@ import './assets/css/style.less'
 import './assets/font/iconfont.css'
 require('./Mock')
 import {parseTime} from './utils'
+import VueCoreVideoPlayer from 'vue-core-video-player'
+import HLSCore from '@core-player/playcore-hls'
+
+Vue.use(VueCoreVideoPlayer)
 
 Vue.config.productionTip = false
 Vue.filter('parseTime', (v) => parseTime(v,'{y}-{m}-{d}'))
