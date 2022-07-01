@@ -11,7 +11,33 @@
                 <!--<quote v-else>{{notice}}</quote>-->
             </div>
             <div class="player-container">
-                <vue-core-video-player :core="HLSCore" aria-controls="fixed" src="http://101.34.253.86:3002/video/imagine.m3u8"></vue-core-video-player>
+                <!-- video element -->
+<vue-plyr :options="options">
+  <video
+    controls
+    crossorigin
+    playsinline
+  >
+    <source
+      size="720"
+      src="http://localhost:5002/video/imagine.m3u8"
+      type="video/mp4"
+    />
+    <source
+      size="1080"
+      src="http://localhost:5002/video/imagine.m3u8"
+      type="video/mp4"
+    />
+    <track
+      default
+      kind="captions"
+      label="English captions"
+      src="/path/to/english.vtt"
+      srclang="en"
+    />
+  </video>
+</vue-plyr>
+                <vue-core-video-player :core="HLSCore" aria-controls="fixed" src="http://localhost:5002/video/imagine.m3u8"></vue-core-video-player>
             </div>
 
             <!--焦点图-->
