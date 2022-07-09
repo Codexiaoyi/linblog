@@ -35,4 +35,4 @@
 /Frontend/*.sln
 /Frontend/*.sw?
 
-/Backend/config/config.ini
+/Backend/config.ini

@@ -1,23 +1,10 @@
 package repository
 
 import (
-	"linblog/config"
 	"linblog/model"
 )
 
 type SiteRepository struct {
-}
-
-func (site *SiteRepository) Get() interface{} {
-	siteInfo := &model.Site{
-		Avatar: config.Avatar,
-		Slogan: config.Slogan,
-		Name:   config.Name,
-		Domain: config.Domain,
-		Notice: config.Notice,
-		Desc:   config.Desc,
-	}
-	return siteInfo
 }
 
 func (site *SiteRepository) GetSocials() []*model.Social {

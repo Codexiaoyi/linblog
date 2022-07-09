@@ -12,18 +12,6 @@ type SiteController struct {
 	SiteRepo *repository.SiteRepository
 }
 
-//[GET("/site")]
-func (site *SiteController) GetSiteInfo(c interfaces.IContext) {
-	response := &siteResponseDto{}
-	siteInfo := site.SiteRepo.Get()
-	err := linweb.NewModel(siteInfo).MapToByFieldName(response).ModelError()
-	if err != nil {
-		Response(c, http.StatusInternalServerError, nil)
-		return
-	}
-	Response(c, http.StatusOK, response)
-}
-
 //[GET("/social")]
 func (site *SiteController) GetSocials(c interfaces.IContext) {
 	socials := site.SiteRepo.GetSocials()
